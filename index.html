@@ -107,7 +107,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pylearn-demo" class="md-skip">
+        <a href="#pylearn" class="md-skip">
           跳转至
         </a>
       
@@ -336,6 +336,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -352,6 +370,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一课：Hello World
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程序的基本构成：
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -544,6 +603,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一课：Hello World
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程序的基本构成：
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -559,28 +648,30 @@
 
 
 
-<h1 id="pylearn-demo">欢迎来到 PyLearn Demo 🎓</h1>
+<h1 id="pylearn">欢迎来到 PyLearn 🎓</h1>
 <p>本网站演示了如何用 <strong>MkDocs + PyScript</strong> 构建交互式 Python 教学平台。</p>
 <p>支持：
 - ✅ Markdown + 数学公式（如 $E=mc^2$）
 - ✅ 可运行的 Python 代码
 - ✅ Pandas / NumPy / Matplotlib</p>
+<h2 id="hello-world">第一课：Hello World</h2>
+<p>我们先运行一个非常简单的代码，这个也是学习任何一门编程语言的时候，都会运行的代码：<code>Hello World</code>。</p>
 <hr />
 <p>点击右上角的 <strong>Run</strong> 按钮运行代码，或使用快捷键 <strong>Ctrl+Enter</strong> (Mac: <strong>Cmd+Enter</strong>) 👇</p>
-<script type="py-editor" config='{"packages": ["numpy"]}'>
-import numpy as np
-
-# 创建一个3x3矩阵
-a = np.arange(9).reshape(3,3)
-print("矩阵 A:")
-print(a)
-print("A 的转置:")
-print(a.T)
-
-# 计算一些基本统计信息
-print(f"矩阵元素总和: {a.sum()}")
-print(f"矩阵平均值: {a.mean():.2f}")
+<script type="py-editor">
+print("Hello World!")
 </script>
+
+<p>Python的代码都是放在后缀名为<code>.py</code>的文件中，为了简化用户自己安装 Python 编程环境的困扰，本网站的代码可以直接在浏览器上运行，点击代码区右下角的 ▶ 播放按钮即可运行代码。</p>
+<h2 id="_1">程序的基本构成：</h2>
+<p>在学习任何一门编程语言的时候，我们首先要了解一门编程语言的基本组成。它包括：
+- 数据类型：Python 中的数据类型有 float, int, boolean, char, list, dict, set 等。
+- 操作符：对于float 和 int 数据类型有加<code>+</code>、减<code>-</code>、乘<code>*</code>、除<code>/</code>等常见的操作符。
+- 函数：有内置函数和自定义函数。
+- if 分支语句：当语句是真的时候，运行代码分支 1，当语句结果是 False 的时候，运行另一个代码分支。
+- 循环语句: while/for loop。
+- OOP: object-oriented programming, 即当很多变量和函数与一个主体相关的时候，我们最好定义这个主体，并把相关变量和函数绑定到这个主体上，方便之后访问。
+- module：一个或者多个脚本构成，当程序代码比较大的时候，所有程序放在一个脚本中</p>
 
 
 
