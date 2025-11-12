@@ -27,14 +27,14 @@ fi
 
 # 升级 pip
 echo "升级 pip..."
-$PIP_CMD install --upgrade pip
+$PYTHON_CMD -m pip install --upgrade pip
 
 # 安装依赖
 echo "安装依赖..."
-$PIP_CMD install -r requirements.txt
+$PYTHON_CMD -m pip install -r requirements.txt
 
 # 构建网站
 echo "构建网站..."
-mkdocs build
+$PYTHON_CMD -m mkdocs build
 
 echo "构建完成！"
