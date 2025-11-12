@@ -25,6 +25,10 @@ else
     exit 1
 fi
 
+# 确保 pip 可用
+echo "检查 pip..."
+$PYTHON_CMD -m ensurepip --upgrade
+
 # 升级 pip
 echo "升级 pip..."
 $PYTHON_CMD -m pip install --upgrade pip
