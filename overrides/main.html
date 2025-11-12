@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block extrahead %}
+  <!-- PyScript 2025.11.1 Latest -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2025.11.1/core.css" />
+
+  <!-- This script tag bootstraps PyScript -->
+  <script type="module" src="https://pyscript.net/releases/2025.11.1/core.js"></script>
+
+  <!-- Force styling after PyScript loads -->
+  <script type="module">
+    // Apply custom styling after PyScript initializes
+    addEventListener('py:ready', () => {
+      // Style all py-terminal elements
+      document.querySelectorAll('py-terminal').forEach(terminal => {
+        terminal.style.backgroundColor = '#263238';
+        terminal.style.color = '#cfd8dc';
+        terminal.style.padding = '1.5rem';
+        terminal.style.borderRadius = '8px';
+        terminal.style.border = '1px solid #37474f';
+        terminal.style.fontFamily = 'Consolas, Monaco, monospace';
+      });
+
+      // Style all CodeMirror editors inside py-editor
+      document.querySelectorAll('py-editor .cm-editor').forEach(editor => {
+        editor.style.backgroundColor = '#fafafa';
+        editor.style.color = '#263238';
+      });
+
+      document.querySelectorAll('py-editor .cm-gutters').forEach(gutter => {
+        gutter.style.backgroundColor = '#f5f5f5';
+        gutter.style.color = '#757575';
+      });
+    });
+  </script>
+{% endblock %}
