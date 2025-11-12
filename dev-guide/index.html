@@ -1,0 +1,2337 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://anzchy.github.io/pylearn/dev-guide/">
+      
+      
+        <link rel="prev" href="../lessons/pandas_demo/">
+      
+      
+        <link rel="next" href="../deployment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>开发指南 - PyLearn</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <!-- PyScript 2025.11.1 Latest -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2025.11.1/core.css" />
+
+  <!-- This script tag bootstraps PyScript -->
+  <script type="module" src="https://pyscript.net/releases/2025.11.1/core.js"></script>
+
+  <!-- Force styling after PyScript loads -->
+  <script type="module">
+    // Apply custom styling after PyScript initializes
+    addEventListener('py:ready', () => {
+      // Style all py-terminal elements
+      document.querySelectorAll('py-terminal').forEach(terminal => {
+        terminal.style.backgroundColor = '#263238';
+        terminal.style.color = '#cfd8dc';
+        terminal.style.padding = '1.5rem';
+        terminal.style.borderRadius = '8px';
+        terminal.style.border = '1px solid #37474f';
+        terminal.style.fontFamily = 'Consolas, Monaco, monospace';
+      });
+
+      // Style all CodeMirror editors inside py-editor
+      document.querySelectorAll('py-editor .cm-editor').forEach(editor => {
+        editor.style.backgroundColor = '#fafafa';
+        editor.style.color = '#263238';
+      });
+
+      document.querySelectorAll('py-editor .cm-gutters').forEach(gutter => {
+        gutter.style.backgroundColor = '#f5f5f5';
+        gutter.style.color = '#757575';
+      });
+    });
+  </script>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pylearn" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="PyLearn" class="md-header__button md-logo" aria-label="PyLearn" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PyLearn
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              开发指南
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lessons/intro/" class="md-tabs__link">
+          
+  
+  
+  教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  开发指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../deployment/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  部署指南
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyLearn" class="md-nav__button md-logo" aria-label="PyLearn" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PyLearn
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lessons/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lessons/pandas_demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pandas 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发指南
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本 Markdown 语法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本 Markdown 语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        标题层级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文本格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        链接和图片
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数学公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        嵌入 Python 代码
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="嵌入 Python 代码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        外部包管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="外部包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 1：无需外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 2：使用单个外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 3：使用多个外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置选项详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置选项详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config 属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用包列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 文档结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 代码注释规范
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 输出友好性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据展示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完整示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 1：Python 基础教程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2numpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 2：NumPy 数据分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 3：Pandas 数据处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: 为什么我的代码没有显示？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: 代码可以跨多个编辑器共享变量吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: 如何隐藏初始化代码？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5: 首次加载很慢怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q6: 支持哪些 Python 版本特性？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加新教程到导航
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本地测试
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文档模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进阶技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进阶技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加用户提示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用折叠区域（可选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        资源链接
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        获取帮助
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本 Markdown 语法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本 Markdown 语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        标题层级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文本格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        链接和图片
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数学公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        嵌入 Python 代码
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="嵌入 Python 代码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重要说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        外部包管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="外部包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 1：无需外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 2：使用单个外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 3：使用多个外部包
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置选项详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置选项详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config 属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用包列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 文档结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 代码注释规范
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 输出友好性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据展示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完整示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 1：Python 基础教程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2numpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 2：NumPy 数据分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例 3：Pandas 数据处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: 为什么我的代码没有显示？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: 代码可以跨多个编辑器共享变量吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: 如何隐藏初始化代码？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5: 首次加载很慢怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q6: 支持哪些 Python 版本特性？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加新教程到导航
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本地测试
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文档模板
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进阶技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="进阶技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加用户提示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用折叠区域（可选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        资源链接
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        获取帮助
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="pylearn">PyLearn 开发指南</h1>
+<p>本指南详细说明如何在 PyLearn 平台上创建交互式 Python 教程文档。</p>
+<hr />
+<h2 id="_1">📋 目录</h2>
+<ol>
+<li><a href="#基本-markdown-语法">基本 Markdown 语法</a></li>
+<li><a href="#嵌入-python-代码">嵌入 Python 代码</a></li>
+<li><a href="#外部包管理">外部包管理</a></li>
+<li><a href="#配置选项详解">配置选项详解</a></li>
+<li><a href="#最佳实践">最佳实践</a></li>
+<li><a href="#完整示例">完整示例</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+</ol>
+<hr />
+<h2 id="markdown">基本 Markdown 语法</h2>
+<h3 id="_2">标题层级</h3>
+<div class="highlight"><pre><span></span><code><span class="gh"># 一级标题</span>
+<span class="gu">## 二级标题</span>
+<span class="gu">### 三级标题</span>
+<span class="gu">#### 四级标题</span>
+</code></pre></div>
+<h3 id="_3">文本格式</h3>
+<div class="highlight"><pre><span></span><code><span class="gs">**粗体文字**</span>
+<span class="ge">*斜体文字*</span>
+<span class="gd">~~删除线~~</span>
+<span class="sb">`行内代码`</span>
+</code></pre></div>
+<h3 id="_4">列表</h3>
+<div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>无序列表项 1
+<span class="k">-</span><span class="w"> </span>无序列表项 2
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>子项 2.1
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>子项 2.2
+
+<span class="k">1.</span> 有序列表项 1
+<span class="k">2.</span> 有序列表项 2
+<span class="k">3.</span> 有序列表项 3
+</code></pre></div>
+<h3 id="_5">链接和图片</h3>
+<div class="highlight"><pre><span></span><code>[<span class="nt">链接文字</span>](<span class="na">https://example.com</span>)
+![<span class="nt">图片描述</span>](<span class="na">./images/example.png</span>)
+</code></pre></div>
+<h3 id="_6">数学公式</h3>
+<p>使用 MathJax 语法：</p>
+<div class="highlight"><pre><span></span><code>行内公式：$E = mc^2$
+
+块级公式：
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+</code></pre></div>
+<p>示例：行内公式 $E = mc^2$，块级公式如下：</p>
+<p>$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$</p>
+<hr />
+<h2 id="python">嵌入 Python 代码</h2>
+<p>PyLearn 使用 <strong>PyScript 2025.11.1</strong> 技术，支持在浏览器中运行 Python 代码。</p>
+<h3 id="_7">基本语法</h3>
+<p>使用 <code>&lt;script type="py-editor"&gt;</code> 标签嵌入可编辑的 Python 代码：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span><span class="p">&gt;</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">这里写</span><span class="w"> </span><span class="nx">Python</span><span class="w"> </span><span class="nx">代码</span>
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;Hello, PyLearn!&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="_8">重要说明</h3>
+<p>⚠️ <strong>注意事项：</strong></p>
+<ol>
+<li>✅ <strong>直接写 Python 代码</strong> - 不要使用 Markdown 代码围栏（```）</li>
+<li>✅ <strong>保持缩进</strong> - Python 缩进必须正确</li>
+<li>✅ <strong>使用标准语法</strong> - 代码将在 Pyodide（Python 3.11）中运行</li>
+<li>✅ <strong>可编辑</strong> - 用户可以修改代码并点击 Run 按钮运行</li>
+</ol>
+<hr />
+<h2 id="_9">外部包管理</h2>
+<h3 id="1">示例 1：无需外部包</h3>
+<p>简单的 Python 代码不需要任何配置：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span><span class="p">&gt;</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">纯</span><span class="w"> </span><span class="nx">Python</span><span class="w"> </span><span class="nx">标准库代码</span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">fibonacci</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">1</span><span class="o">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fibonacci</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">fibonacci</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">10</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;F({i}) = {fibonacci(i)}&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>实际效果：</strong></p>
+<script type="py-editor">
+# 纯 Python 标准库代码
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+for i in range(10):
+    print(f"F({i}) = {fibonacci(i)}")
+</script>
+
+<hr />
+<h3 id="2">示例 2：使用单个外部包</h3>
+<p>使用 <code>config</code> 属性引入包（如 NumPy）：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">config</span><span class="o">=</span><span class="s">&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;</span><span class="p">&gt;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">创建数组</span>
+<span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">np</span><span class="p">.</span><span class="nx">array</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">])</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;数组: {arr}&quot;</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;平均值: {arr.mean()}&quot;</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;标准差: {arr.std():.2f}&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>实际效果：</strong></p>
+<script type="py-editor" config='{"packages": ["numpy"]}'>
+import numpy as np
+
+# 创建数组
+arr = np.array([1, 2, 3, 4, 5])
+print(f"数组: {arr}")
+print(f"平均值: {arr.mean()}")
+print(f"标准差: {arr.std():.2f}")
+</script>
+
+<hr />
+<h3 id="3">示例 3：使用多个外部包</h3>
+<p>引入多个包（如 NumPy + Pandas）：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">config</span><span class="o">=</span><span class="s">&#39;{&quot;packages&quot;: [&quot;numpy&quot;, &quot;pandas&quot;]}&#39;</span><span class="p">&gt;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">pandas</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">pd</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">创建</span><span class="w"> </span><span class="nx">DataFrame</span>
+<span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pd</span><span class="p">.</span><span class="nx">DataFrame</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;姓名&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;张三&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;李四&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;王五&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="s2">&quot;年龄&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">25</span><span class="p">,</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="mf">35</span><span class="p">],</span>
+<span class="w">    </span><span class="s2">&quot;工资&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">8000</span><span class="p">,</span><span class="w"> </span><span class="mf">12000</span><span class="p">,</span><span class="w"> </span><span class="mf">15000</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;员工数据:&quot;</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;\n平均年龄: {data[&#39;年龄&#39;].mean()}&quot;</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;平均工资: {data[&#39;工资&#39;].mean()}&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>实际效果：</strong></p>
+<script type="py-editor" config='{"packages": ["numpy", "pandas"]}'>
+import numpy as np
+import pandas as pd
+
+# 创建 DataFrame
+data = pd.DataFrame({
+    "姓名": ["张三", "李四", "王五"],
+    "年龄": [25, 30, 35],
+    "工资": [8000, 12000, 15000]
+})
+
+print("员工数据:")
+print(data)
+print(f"\n平均年龄: {data['年龄'].mean()}")
+print(f"平均工资: {data['工资'].mean()}")
+</script>
+
+<hr />
+<h2 id="_10">配置选项详解</h2>
+<h3 id="config">config 属性</h3>
+<p><code>config</code> 属性使用 JSON 格式，必须用<strong>单引号</strong>包裹：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">config</span><span class="o">=</span><span class="s">&#39;{&quot;packages&quot;: [&quot;包名1&quot;, &quot;包名2&quot;]}&#39;</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="_11">常用包列表</h3>
+<p>PyScript 支持的常用科学计算包：</p>
+<table>
+<thead>
+<tr>
+<th>包名</th>
+<th>说明</th>
+<th>示例用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>numpy</code></td>
+<td>数值计算</td>
+<td>数组、矩阵运算</td>
+</tr>
+<tr>
+<td><code>pandas</code></td>
+<td>数据分析</td>
+<td>DataFrame、数据处理</td>
+</tr>
+<tr>
+<td><code>matplotlib</code></td>
+<td>数据可视化</td>
+<td>绘制图表</td>
+</tr>
+<tr>
+<td><code>scikit-learn</code></td>
+<td>机器学习</td>
+<td>模型训练、预测</td>
+</tr>
+<tr>
+<td><code>scipy</code></td>
+<td>科学计算</td>
+<td>统计、优化、信号处理</td>
+</tr>
+<tr>
+<td><code>sympy</code></td>
+<td>符号计算</td>
+<td>代数、微积分</td>
+</tr>
+<tr>
+<td><code>requests</code></td>
+<td>HTTP 请求</td>
+<td>API 调用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">配置示例</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 无包依赖 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 单个包 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">config</span><span class="o">=</span><span class="s">&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 多个包 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">config</span><span class="o">=</span><span class="s">&#39;{&quot;packages&quot;: [&quot;numpy&quot;, &quot;pandas&quot;, &quot;matplotlib&quot;]}&#39;</span><span class="p">&gt;</span>
+</code></pre></div>
+<hr />
+<h2 id="_13">最佳实践</h2>
+<h3 id="1_1">1. 文档结构</h3>
+<p>推荐的文档结构：</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># 教程标题</span>
+
+简短的介绍说明本教程的内容和目标。
+
+<span class="gs">**学习目标：**</span>
+<span class="k">-</span><span class="w"> </span>目标 1
+<span class="k">-</span><span class="w"> </span>目标 2
+<span class="k">-</span><span class="w"> </span>目标 3
+
+---
+
+<span class="gu">## 第一部分：基础概念</span>
+
+文字说明...
+
+&lt;script type=&quot;py-editor&quot;&gt;
+<span class="gh"># 示例代码</span>
+&lt;/script&gt;
+
+<span class="gu">## 第二部分：进阶应用</span>
+
+文字说明...
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;&gt;
+<span class="gh"># 带包的示例代码</span>
+&lt;/script&gt;
+
+---
+
+<span class="gu">## 小结</span>
+
+总结本教程的要点...
+</code></pre></div>
+<h3 id="2_1">2. 代码注释规范</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ✅ 好的注释：清晰说明目的</span>
+<span class="c1"># 创建一个 5x5 的单位矩阵</span>
+<span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># ❌ 不好的注释：重复代码</span>
+<span class="c1"># 创建 eye</span>
+<span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="3_1">3. 输出友好性</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ✅ 好的输出：带描述</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均值: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;最大值: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ❌ 不好的输出：无上下文</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</code></pre></div>
+<h3 id="4">4. 错误处理</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ✅ 添加错误处理，提高用户体验</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;错误：不能除以零！&quot;</span><span class="p">)</span>
+
+<span class="c1"># ❌ 没有错误处理，用户看到难懂的报错</span>
+<span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span>
+</code></pre></div>
+<h3 id="5">5. 数据展示</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ✅ 格式化输出，便于阅读</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">学生成绩统计：&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;最高分: </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;最低分: </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均分: </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># ❌ 混乱的输出</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</code></pre></div>
+<hr />
+<h2 id="_14">完整示例</h2>
+<h3 id="1python">示例 1：Python 基础教程</h3>
+<div class="highlight"><pre><span></span><code><span class="gh"># Python 列表操作</span>
+
+学习 Python 列表的基本操作方法。
+
+<span class="gu">## 创建和访问列表</span>
+
+&lt;script type=&quot;py-editor&quot;&gt;
+<span class="gh"># 创建列表</span>
+fruits = [&quot;苹果&quot;, &quot;香蕉&quot;, &quot;橙子&quot;, &quot;葡萄&quot;]
+
+<span class="gh"># 访问元素</span>
+print(f&quot;第一个水果: {fruits[0]}&quot;)
+print(f&quot;最后一个水果: {fruits[-1]}&quot;)
+
+<span class="gh"># 切片操作</span>
+print(f&quot;前两个水果: {fruits[:2]}&quot;)
+&lt;/script&gt;
+
+<span class="gu">## 列表方法</span>
+
+&lt;script type=&quot;py-editor&quot;&gt;
+<span class="gh"># 添加元素</span>
+numbers = [1, 2, 3]
+numbers.append(4)
+numbers.extend([5, 6])
+print(f&quot;添加后: {numbers}&quot;)
+
+<span class="gh"># 删除元素</span>
+numbers.remove(3)
+print(f&quot;删除 3 后: {numbers}&quot;)
+
+<span class="gh"># 排序</span>
+numbers.sort(reverse=True)
+print(f&quot;降序排序: {numbers}&quot;)
+&lt;/script&gt;
+</code></pre></div>
+<h3 id="2numpy">示例 2：NumPy 数据分析</h3>
+<div class="highlight"><pre><span></span><code><span class="gh"># NumPy 数组统计</span>
+
+使用 NumPy 进行基本的统计分析。
+
+<span class="gu">## 创建随机数据</span>
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;&gt;
+import numpy as np
+
+<span class="gh"># 设置随机种子，确保结果可重复</span>
+np.random.seed(42)
+
+<span class="gh"># 生成 100 个正态分布的随机数</span>
+data = np.random.normal(loc=100, scale=15, size=100)
+
+print(f&quot;数据点数: {len(data)}&quot;)
+print(f&quot;前 5 个数据: {data[:5]}&quot;)
+&lt;/script&gt;
+
+<span class="gu">## 统计分析</span>
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;&gt;
+import numpy as np
+
+<span class="gh"># 继续使用上面的数据</span>
+np.random.seed(42)
+data = np.random.normal(loc=100, scale=15, size=100)
+
+<span class="gh"># 计算统计量</span>
+print(&quot;=&quot; * 50)
+print(&quot;统计摘要：&quot;)
+print(&quot;=&quot; * 50)
+print(f&quot;平均值: {np.mean(data):.2f}&quot;)
+print(f&quot;中位数: {np.median(data):.2f}&quot;)
+print(f&quot;标准差: {np.std(data):.2f}&quot;)
+print(f&quot;最小值: {np.min(data):.2f}&quot;)
+print(f&quot;最大值: {np.max(data):.2f}&quot;)
+print(&quot;=&quot; * 50)
+&lt;/script&gt;
+</code></pre></div>
+<h3 id="3pandas">示例 3：Pandas 数据处理</h3>
+<div class="highlight"><pre><span></span><code><span class="gh"># Pandas DataFrame 操作</span>
+
+学习使用 Pandas 处理表格数据。
+
+<span class="gu">## 创建 DataFrame</span>
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;pandas&quot;, &quot;numpy&quot;]}&#39;&gt;
+import pandas as pd
+import numpy as np
+
+<span class="gh"># 创建学生成绩数据</span>
+data = pd.DataFrame({
+    &quot;姓名&quot;: [&quot;张三&quot;, &quot;李四&quot;, &quot;王五&quot;, &quot;赵六&quot;, &quot;钱七&quot;],
+    &quot;数学&quot;: [85, 92, 78, 95, 88],
+    &quot;英语&quot;: [90, 85, 92, 88, 91],
+    &quot;Python&quot;: [88, 94, 85, 90, 92]
+})
+
+print(&quot;学生成绩表：&quot;)
+print(data)
+&lt;/script&gt;
+
+<span class="gu">## 数据分析</span>
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;pandas&quot;, &quot;numpy&quot;]}&#39;&gt;
+import pandas as pd
+
+<span class="gh"># 重新创建数据</span>
+data = pd.DataFrame({
+    &quot;姓名&quot;: [&quot;张三&quot;, &quot;李四&quot;, &quot;王五&quot;, &quot;赵六&quot;, &quot;钱七&quot;],
+    &quot;数学&quot;: [85, 92, 78, 95, 88],
+    &quot;英语&quot;: [90, 85, 92, 88, 91],
+    &quot;Python&quot;: [88, 94, 85, 90, 92]
+})
+
+<span class="gh"># 计算总分和平均分</span>
+data[&quot;总分&quot;] = data[[&quot;数学&quot;, &quot;英语&quot;, &quot;Python&quot;]].sum(axis=1)
+data[&quot;平均分&quot;] = data[[&quot;数学&quot;, &quot;英语&quot;, &quot;Python&quot;]].mean(axis=1).round(2)
+
+print(&quot;成绩统计：&quot;)
+print(data)
+
+print(&quot;\n&quot; + &quot;=&quot; * 50)
+print(&quot;各科平均分：&quot;)
+print(f&quot;数学: {data[&#39;数学&#39;].mean():.2f}&quot;)
+print(f&quot;英语: {data[&#39;英语&#39;].mean():.2f}&quot;)
+print(f&quot;Python: {data[&#39;Python&#39;].mean():.2f}&quot;)
+print(&quot;=&quot; * 50)
+&lt;/script&gt;
+</code></pre></div>
+<hr />
+<h2 id="_15">常见问题</h2>
+<h3 id="q1">Q1: 为什么我的代码没有显示？</h3>
+<p><strong>A:</strong> 检查以下几点：</p>
+<ol>
+<li>确保使用 <code>&lt;script type="py-editor"&gt;</code> 标签</li>
+<li>不要在 <code>&lt;script&gt;</code> 标签内使用 Markdown 代码围栏（```）</li>
+<li>检查 HTML 标签是否正确闭合</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- ✅ 正确 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span><span class="p">&gt;</span>
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ❌ 错误：使用了代码围栏 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span><span class="p">&gt;</span>
+<span class="sb">```python</span>
+print(&quot;Hello&quot;)
+</code></pre></div>
+</script>
+<div class="highlight"><pre><span></span><code>### Q2: 为什么包导入失败？
+
+**A:** 检查以下几点：
+
+1. 确保 `config` 属性使用**单引号**包裹 JSON
+2. 包名必须在双引号内
+3. 多个包用逗号分隔
+
+```html
+&lt;!-- ✅ 正确 --&gt;
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;numpy&quot;, &quot;pandas&quot;]}&#39;&gt;
+
+&lt;!-- ❌ 错误：使用了双引号包裹 JSON --&gt;
+&lt;script type=&quot;py-editor&quot; config=&quot;{&quot;packages&quot;: [&quot;numpy&quot;]}&quot;&gt;
+
+&lt;!-- ❌ 错误：包名没有用引号 --&gt;
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [numpy]}&#39;&gt;
+</code></pre></div></p>
+<h3 id="q3">Q3: 代码可以跨多个编辑器共享变量吗？</h3>
+<p><strong>A:</strong> 默认情况下，每个编辑器都是独立的环境。如果需要共享变量，需要使用 <code>env</code> 属性：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 第一个编辑器：定义变量 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">env</span><span class="o">=</span><span class="s">&quot;shared&quot;</span><span class="p">&gt;</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span>
+<span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">200</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 第二个编辑器：使用变量 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">env</span><span class="o">=</span><span class="s">&quot;shared&quot;</span><span class="p">&gt;</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">可以访问上面定义的</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="nx">和</span><span class="w"> </span><span class="nx">y</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;x + y = {x + y}&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="q4">Q4: 如何隐藏初始化代码？</h3>
+<p><strong>A:</strong> 使用 <code>setup</code> 属性：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 隐藏的初始化代码 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">env</span><span class="o">=</span><span class="s">&quot;demo&quot;</span> <span class="na">setup</span><span class="p">&gt;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">np</span><span class="p">.</span><span class="nx">random</span><span class="p">.</span><span class="nx">randn</span><span class="p">(</span><span class="mf">100</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 可见的主代码 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;py-editor&quot;</span> <span class="na">env</span><span class="o">=</span><span class="s">&quot;demo&quot;</span><span class="p">&gt;</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="nx">变量已经准备好</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">f</span><span class="s2">&quot;数据均值: {data.mean():.2f}&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="q5">Q5: 首次加载很慢怎么办？</h3>
+<p><strong>A:</strong> 这是正常的。PyScript 需要下载 Python 解释器和包：</p>
+<ul>
+<li><strong>首次加载</strong>：可能需要 5-10 秒（下载 Pyodide）</li>
+<li><strong>后续加载</strong>：1-2 秒（使用浏览器缓存）</li>
+<li><strong>大型包</strong>：如 pandas、matplotlib 会更慢</li>
+</ul>
+<p>建议在文档中添加说明：</p>
+<div class="highlight"><pre><span></span><code>⏱️ <span class="gs">**首次加载提示**</span>：首次运行可能需要几秒钟下载 Python 环境，请耐心等待。
+</code></pre></div>
+<h3 id="q6-python">Q6: 支持哪些 Python 版本特性？</h3>
+<p><strong>A:</strong> PyScript 使用 Pyodide，基于 <strong>Python 3.11</strong>：</p>
+<p>✅ <strong>支持：</strong>
+- f-strings
+- 类型提示
+- 异步编程（async/await）
+- 上下文管理器（with）
+- 装饰器</p>
+<p>❌ <strong>不支持：</strong>
+- 文件系统操作（open, os.path）
+- 多线程/多进程
+- 系统命令（subprocess）
+- 纯 C 扩展包</p>
+<hr />
+<h2 id="_16">添加新教程到导航</h2>
+<p>创建新教程后，需要在 <code>mkdocs.yml</code> 中添加导航：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">首页</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">教程</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Python 基础</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lessons/intro.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Pandas 示例</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lessons/pandas_demo.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">你的新教程</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lessons/your_tutorial.md</span><span class="w">  </span><span class="c1"># 添加这里</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">部署指南</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">开发指南</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-guide.md</span>
+</code></pre></div>
+<hr />
+<h2 id="_17">本地测试</h2>
+<p>创建或修改文档后，使用以下命令测试：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 激活虚拟环境</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># 启动开发服务器</span>
+mkdocs<span class="w"> </span>serve
+
+<span class="c1"># 访问 http://127.0.0.1:8000/pylearn/</span>
+</code></pre></div>
+<hr />
+<h2 id="_18">文档模板</h2>
+<p>使用以下模板快速创建新教程：</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># 教程标题</span>
+
+简短介绍教程内容。
+
+<span class="gs">**学习目标：**</span>
+<span class="k">-</span><span class="w"> </span>目标 1
+<span class="k">-</span><span class="w"> </span>目标 2
+<span class="k">-</span><span class="w"> </span>目标 3
+
+---
+
+<span class="gu">## 第一部分：基础知识</span>
+
+解释基本概念...
+
+<span class="gs">**示例：**</span>
+
+&lt;script type=&quot;py-editor&quot;&gt;
+<span class="gh"># 基础示例代码</span>
+print(&quot;Hello, World!&quot;)
+&lt;/script&gt;
+
+---
+
+<span class="gu">## 第二部分：实践应用</span>
+
+更复杂的示例...
+
+<span class="gs">**示例：**</span>
+
+&lt;script type=&quot;py-editor&quot; config=&#39;{&quot;packages&quot;: [&quot;numpy&quot;]}&#39;&gt;
+import numpy as np
+
+<span class="gh"># 实践代码</span>
+arr = np.array([1, 2, 3, 4, 5])
+print(f&quot;数组: {arr}&quot;)
+&lt;/script&gt;
+
+---
+
+<span class="gu">## 练习</span>
+
+尝试修改上面的代码，完成以下任务：
+
+<span class="k">1.</span> 任务 1
+<span class="k">2.</span> 任务 2
+<span class="k">3.</span> 任务 3
+
+---
+
+<span class="gu">## 小结</span>
+
+总结本教程的关键点...
+
+<span class="gs">**下一步：**</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">相关教程 1</span>](<span class="na">./other_tutorial.md</span>)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">相关教程 2</span>](<span class="na">./another_tutorial.md</span>)
+</code></pre></div>
+<hr />
+<h2 id="_19">进阶技巧</h2>
+<h3 id="_20">添加用户提示</h3>
+<div class="highlight"><pre><span></span><code>💡 <span class="gs">**提示**</span>：将鼠标悬停在编辑器右上角可以看到 Run 按钮。
+
+⚠️ <span class="gs">**注意**</span>：首次加载可能需要几秒钟。
+
+✅ <span class="gs">**成功**</span>：如果看到输出结果，说明代码运行成功！
+
+❌ <span class="gs">**错误**</span>：如果出现红色错误信息，请检查代码语法。
+</code></pre></div>
+<h3 id="_21">使用折叠区域（可选）</h3>
+<div class="highlight"><pre><span></span><code>&lt;details&gt;
+&lt;summary&gt;点击查看答案&lt;/summary&gt;
+
+&lt;script type=&quot;py-editor&quot;&gt;
+<span class="gh"># 答案代码</span>
+def solution():
+    return 42
+print(solution())
+&lt;/script&gt;
+
+&lt;/details&gt;
+</code></pre></div>
+<hr />
+<h2 id="_22">资源链接</h2>
+<ul>
+<li><a href="https://docs.pyscript.net/">PyScript 官方文档</a></li>
+<li><a href="https://www.mkdocs.org/">MkDocs 文档</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></li>
+<li><a href="https://pyodide.org/en/stable/usage/packages-in-pyodide.html">Pyodide 包列表</a></li>
+<li><a href="https://www.markdownguide.org/">Markdown 语法指南</a></li>
+</ul>
+<hr />
+<h2 id="_23">获取帮助</h2>
+<p>如果遇到问题：</p>
+<ol>
+<li>查看本文档的<a href="#常见问题">常见问题</a>部分</li>
+<li>检查浏览器控制台（F12）的错误信息</li>
+<li>参考现有教程的源代码</li>
+<li>查阅 PyScript 官方文档</li>
+</ol>
+<hr />
+<p><strong>祝你创作愉快！</strong> 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tabs"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

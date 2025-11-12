@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://anzchy.github.io/pylearn/</loc>
+         <lastmod>2025-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://anzchy.github.io/pylearn/deployment/</loc>
+         <lastmod>2025-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://anzchy.github.io/pylearn/dev-guide/</loc>
+         <lastmod>2025-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://anzchy.github.io/pylearn/lessons/intro/</loc>
+         <lastmod>2025-11-12</lastmod>
+    </url>
+    <url>
+         <loc>https://anzchy.github.io/pylearn/lessons/pandas_demo/</loc>
+         <lastmod>2025-11-12</lastmod>
+    </url>
+</urlset>
