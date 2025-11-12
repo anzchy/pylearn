@@ -63,19 +63,34 @@ mkdocs gh-deploy
    构建目录：site
    ```
 
-4. **构建设置**
+4. **构建设置** ⚠️ **关键配置**
+
+   **方法一：使用 pip3 和 requirements.txt（推荐）**
    ```bash
    # 构建命令
-   pip install mkdocs-material && mkdocs build
+   pip3 install --upgrade pip && pip3 install -r requirements.txt && mkdocs build
 
    # 输出目录
    site
    ```
 
-5. **环境变量（可选）**
+   **方法二：使用构建脚本**
+   ```bash
+   # 构建命令
+   bash build.sh
+
+   # 输出目录
+   site
    ```
-   PYTHON_VERSION: 3.9
+
+5. **环境变量（必需）**
+
+   在 EdgeOne Pages 控制台的"环境变量"设置中添加：
    ```
+   PYTHON_VERSION=3.11
+   ```
+
+   **说明**：默认使用 Python 2.7 会导致构建失败，必须指定 Python 3.x
 
 6. **域名配置**
    - 默认域名：`xxx.pages.edgeone.app`
