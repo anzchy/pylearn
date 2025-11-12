@@ -14,10 +14,11 @@ theme:
 nav:
   - 首页: index.md
   - 教程:
-      - Python 基础: lessons/intro.md
-      - Pandas 示例: lessons/pandas_demo.md
-  - 开发指南: dev-guide.md
-  - 部署指南: deployment.md
+      - Python 基础: lessons/01_intro.md
+      - Pandas 示例: lessons/02_python_framework.md
+  - 指南: 
+      - 开发指南: dev-guide.md
+      - 部署指南: deployment.md
 
 extra_css:
   - assets/style.css
